@@ -13,7 +13,7 @@ the language. There is not more than one instruction per line.
 
 ## Installation
 
-Clone the repositori and use the compiler script.
+Clone the repositorie and use the compiler script.
 
 ```bash
 $ git clone https://github.com/SamuelFCorrea/monty.git

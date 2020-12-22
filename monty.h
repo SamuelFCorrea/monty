@@ -1,24 +1,11 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-
-/**********************************Headers************************************/
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <ctype.h>
-
-/***********************************Macros************************************/
-
-#define B_SIZE 1024
-
-/*********************************Structures**********************************/
-
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -29,12 +16,11 @@
  * Description: doubly linked list node structure
  * for stack, queues, LIFO, FIFO Holberton project
  */
-
 typedef struct stack_s
 {
-	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
 } stack_t;
 
 /**
@@ -45,44 +31,34 @@ typedef struct stack_s
  * Description: opcode and its function
  * for stack, queues, LIFO, FIFO Holberton project
  */
-
 typedef struct instruction_s
 {
-	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+        char *opcode;
+        void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 /**
- * struct DATA - all the data required to the excution
- * @line: line number
- * @fn: file name
- * @fd: file descriptor
- *
- * Description: contains all the memory allocation to
- * facilitate the free prosses
+ * struct arguments - argument to push
+ * @arg: argument to the function
  */
 
-typedef struct data_s
+typedef struct arguments
 {
-	unsigned int line;
-	char *line_buffer;
-	char *file_name;
-	FILE *file;
-} data_t;
+	char *arg;
+} arguments;
 
+arguments argument;
 extern int status;
 
-/********************************Prototipes*********************************/
 
-data_t *init(char *);
-void s_and_e(data_t *);
+void opcode_run(stack_t **, char *, unsigned int);
+void push(stack_t **, unsigned int);
+void is_num(void);
+void mfail(void);
+void pint(stack_t **, unsigned int);
 void pall(stack_t **, unsigned int);
-void free_data_t(data_t *);
-void push(stack_t **, unsigned int, char *);
-void bucle(stack_t **, data_t *, instruction_t *);
+void pop(stack_t **, unsigned int);
+void swap(stack_t **, unsigned int);
 void free_stack(stack_t *);
-void push(stack_t **, unsigned int, char *);
-
-/***************************************************************************/
 
 #endif

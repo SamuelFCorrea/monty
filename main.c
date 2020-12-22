@@ -1,33 +1,64 @@
 #include "monty.h"
 
-/**
- * main - interpreter of monty code
- * @ac: argument count
- * @av: argumets
- *
- * Return: on success 0 othewise 1
- */
+int status = EXIT_SUCCESS;
 
 int main(int ac, char **av)
 {
-	data_t *data = NULL;
+	FILE *file;
+	unsigned int line = 1;
+	size_t line_len = 0;
+	stack_t *stack = NULL;
+	char *buf = NULL, *opcode;
 
 	if (ac != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	if (access(av[1], F_OK | R_OK))
+	file = fopen(av[1], "r");
+	if (!file)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
-	data = init(av[1]);
+	while (getline(&buf, &line_len, file) != -1 && status == EXIT_SUCCESS)
+	{
+		opcode = strtok(buf, " \t\n");
+		if (!opcode || *opcode == '#')
+		{
+			line++;
+			continue;
+		}
+		argument.arg = strtok(NULL, " \t\n");
+		opcode_run(&stack, opcode, line++);
+	}
 
-	s_and_e(data);
+	free(buf);
+	fclose(file);
+	free_stack(stack);
+	exit(status);
+}
 
+void opcode_run(stack_t **head, char *opcode, unsigned int line)
+{
+	int i;
+	instruction_t ins[] = {
+		{"push", push},
+		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
+		{NULL, NULL}
+	};
 
-	free_data_t(data);
-
-	return (EXIT_SUCCESS);
+	for (i = 0; ins[i].opcode; i++)
+		if (strcmp(ins[i].opcode, opcode) == 0)
+			break;
+	if (ins[i].opcode)
+		ins[i].f(head, line);
+	else
+	{
+		fprintf(stderr, "L%d: unknown instruction %s\n", line, opcode);
+		status = EXIT_FAILURE;
+	}
 }

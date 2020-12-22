@@ -114,6 +114,8 @@ void s_and_e(data_t *data)
 			exit(EXIT_FAILURE);
 		}
 		}
+		else
+			data->line++;
 	}
 	free_stack(*head);
 	free(head);

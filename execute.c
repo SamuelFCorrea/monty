@@ -35,9 +35,16 @@ void free_stack(stack_t *head)
 
 void push(stack_t **head, unsigned int line, char *data)
 {
+	int i;
 	stack_t *new = NULL;
 
-	if (!data)
+	for (i = 0; *(data + i); i++)
+		if (*(data + i) < 48 || *(data + i) > 57)
+		{
+			i = -1;
+			break;
+		}
+	if (!data || i == -1)
 	{
 		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line);
 		*status = 1;
@@ -47,7 +54,7 @@ void push(stack_t **head, unsigned int line, char *data)
 		new = malloc(sizeof(stack_t));
 		if (!new)
 		{
-			dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line);
+			dprintf(STDERR_FILENO, "Error: malloc failed\n");
 			*status = 1;
 			return;
 		}

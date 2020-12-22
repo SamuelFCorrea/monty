@@ -99,8 +99,6 @@ void push(stack_t **head, unsigned int line, char *data)
 void s_and_e(data_t *data)
 {
 	stack_t **head = NULL;
-	int i;
-	char *opcode = NULL, *s = " \n\t";
 
 	instruction_t list[] = {
 		{"pall", pall},
@@ -113,7 +111,31 @@ void s_and_e(data_t *data)
 		free_data_t(data);
 		exit(EXIT_FAILURE);
 	}
-	while(fgets(data->line_buffer, 1024, data->file))
+	bucle(head, data, list);
+	free_stack(*head);
+	free(head);
+	if (status == 1)
+	{
+		free_data_t(data);
+		exit(EXIT_FAILURE);
+	}
+}
+
+/**
+ * bucle - bucleto read the file
+ * @head: head of the stack
+ * @data: data struct
+ * @list: commands
+ *
+ * Return: none
+ */
+
+void bucle(stack_t **head, data_t *data, instruction_t list[])
+{
+	int i;
+	char *opcode = NULL, *s = " \n\t";
+
+	while (fgets(data->line_buffer, 1024, data->file))
 	{
 		opcode = strtok(data->line_buffer, s);
 		if (opcode)
@@ -128,18 +150,14 @@ void s_and_e(data_t *data)
 					break;
 					}
 		}
-		if (list[i].opcode == NULL || status == 1)
+		if (list[i].opcode == NULL)
 		{
-			free_stack(*head);
-			free(head);
-			if (!list[i].opcode)
-				fprintf(stderr, "L%d: unknown instruction %s\n", data->line, opcode);
-			free_data_t(data);
-			exit(EXIT_FAILURE);
+			fprintf(stderr, "L%d: unknown instruction %s\n", data->line, opcode);
+			status = 1;
 		}
 		else
 			data->line++;
+		if (status != 0)
+			break;
 	}
-	free_stack(*head);
-	free(head);
 }

@@ -74,15 +74,13 @@ extern int status;
 
 /********************************Prototipes*********************************/
 
-/*		initialize data_s		*/
 data_t *init(char *);
-
-/*	select the function and execute it	*/
 void s_and_e(data_t *);
-
-/*		free data_t struct		*/
+void pall(stack_t **, unsigned int);
 void free_data_t(data_t *);
-
+void push(stack_t **, unsigned int, char *);
+void bucle(stack_t **, data_t *, instruction_t *);
+void free_stack(stack_t *);
 void push(stack_t **, unsigned int, char *);
 
 /***************************************************************************/

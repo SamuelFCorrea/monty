@@ -89,6 +89,8 @@ void s_and_e(data_t *data)
 	while(fgets(data->line_buffer, 1024, data->file))
 	{
 		opcode = strtok(data->line_buffer, s);
+		if (opcode)
+		{
 		if (strcmp("push", opcode) == 0)
 			push(head, data->line++, strtok(NULL, s));
 		else
@@ -110,6 +112,7 @@ void s_and_e(data_t *data)
 				dprintf(STDERR_FILENO, "L%d: unknown instruction %s\n", data->line, opcode);
 			free_data_t(data);
 			exit(EXIT_FAILURE);
+		}
 		}
 	}
 	free_stack(*head);

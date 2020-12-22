@@ -8,7 +8,7 @@ void push(stack_t **head, unsigned int line)
 
 	if (status == EXIT_FAILURE)
 	{
-		fprintf(stderr, "L%d>: usage: push integer\n", line);
+		fprintf(stderr, "L%d: usage: push integer\n", line);
 		return;
 	}
 	new = malloc(sizeof(stack_t));

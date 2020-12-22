@@ -11,6 +11,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <ctype.h>
 
 /***********************************Macros************************************/
 
@@ -68,6 +69,8 @@ typedef struct data_s
 	char *file_name;
 	FILE *file;
 } data_t;
+
+extern int status;
 
 /********************************Prototipes*********************************/
 

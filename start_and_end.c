@@ -1,5 +1,12 @@
 #include "monty.h"
 
+/**
+ * init - initialize the struct with important data
+ * @file_name: name of the file with the monty code
+ *
+ * Return: pointer to a structure with the data set
+ */
+
 data_t *init(char *file_name)
 {
 	char *line = NULL;
@@ -24,9 +31,17 @@ data_t *init(char *file_name)
 	data->line_buffer = line;
 	data->file_name = file_name;
 	data->file = fopen(file_name, "r");
+	status = 0;
 
 	return (data);
 }
+
+/**
+ * free_data_t - free the data struct
+ * @data: struct to free
+ *
+ * Return: none
+ */
 
 void free_data_t(data_t *data)
 {

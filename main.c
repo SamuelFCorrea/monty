@@ -1,10 +1,17 @@
 #include "monty.h"
 
+/**
+ * main - interpreter of monty code
+ * @ac: argument count
+ * @av: argumets
+ *
+ * Return: on success 0 othewise 1
+ */
 
 int main(int ac, char **av)
 {
 	data_t *data = NULL;
-	
+
 	if (ac != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
@@ -16,7 +23,7 @@ int main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 	data = init(av[1]);
-	
+
 	s_and_e(data);
 
 

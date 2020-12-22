@@ -1,7 +1,13 @@
 #include "monty.h"
 
-int a = 0;
-int *status = &a;
+int status = 0;
+/**
+ * pall - print all the values on the stack
+ * @head: head of the stack
+ * @line: line of the file
+ *
+ * Return: none
+ */
 
 void pall(stack_t **head, unsigned int line)
 {
@@ -20,6 +26,13 @@ void pall(stack_t **head, unsigned int line)
 	}
 }
 
+/**
+ * free_stack - free the stack
+ * @head: <<
+ *
+ * Return: none
+ */
+
 void free_stack(stack_t *head)
 {
 	stack_t *f = head;
@@ -32,6 +45,15 @@ void free_stack(stack_t *head)
 	}
 	free(f);
 }
+
+/**
+ * push - push a new element into the stack
+ * @head: <<
+ * @line: <<
+ * @data: int to put in the stack
+ *
+ * Return: none
+ */
 
 void push(stack_t **head, unsigned int line, char *data)
 {
@@ -47,7 +69,7 @@ void push(stack_t **head, unsigned int line, char *data)
 	if (!data || i == -1)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line);
-		*status = 1;
+		status = 1;
 	}
 	else
 	{
@@ -55,7 +77,7 @@ void push(stack_t **head, unsigned int line, char *data)
 		if (!new)
 		{
 			fprintf(stderr, "Error: malloc failed\n");
-			*status = 1;
+			status = 1;
 			return;
 		}
 		new->n = atoi(data);
@@ -67,17 +89,23 @@ void push(stack_t **head, unsigned int line, char *data)
 	}
 }
 
+/**
+ * s_and_e - execute the correct function
+ * @data: struct with important data
+ *
+ * Return: none
+ */
+
 void s_and_e(data_t *data)
 {
 	stack_t **head = NULL;
 	int i;
 	char *opcode = NULL, *s = " \n\t";
-	
+
 	instruction_t list[] = {
 		{"pall", pall},
 		{NULL, NULL}
 	};
-
 
 	head = malloc(sizeof(stack_t));
 	if (!head)
@@ -85,26 +113,22 @@ void s_and_e(data_t *data)
 		free_data_t(data);
 		exit(EXIT_FAILURE);
 	}
-
 	while(fgets(data->line_buffer, 1024, data->file))
 	{
 		opcode = strtok(data->line_buffer, s);
 		if (opcode)
 		{
-		if (strcmp("push", opcode) == 0)
-			push(head, data->line++, strtok(NULL, s));
-		else
-		{
-			for (i = 0; list[i].opcode; i++)
-			{
-				if (strcmp(opcode, list[i].opcode) == 0)
-				{
+			if (strcmp("push", opcode) == 0)
+				push(head, data->line++, strtok(NULL, s));
+			else
+				for (i = 0; list[i].opcode; i++)
+					if (strcmp(opcode, list[i].opcode) == 0)
+					{
 					list[i].f(head, data->line++);
 					break;
-				}
-			}
+					}
 		}
-		if (list[i].opcode == NULL || a == 1)
+		if (list[i].opcode == NULL || status == 1)
 		{
 			free_stack(*head);
 			free(head);
@@ -112,7 +136,6 @@ void s_and_e(data_t *data)
 				fprintf(stderr, "L%d: unknown instruction %s\n", data->line, opcode);
 			free_data_t(data);
 			exit(EXIT_FAILURE);
-		}
 		}
 		else
 			data->line++;

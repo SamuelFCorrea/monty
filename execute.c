@@ -95,10 +95,12 @@ void s_and_e(data_t *data)
 				}
 			}
 		}
-		if (a == 1)
+		if (list[i].opcode == NULL || a == 1)
 		{
 			free_stack(*head);
 			free(head);
+			if (!list[i].opcode)
+				dprintf(STDERR_FILENO, "L%d: unknown instruction %s\n", data->line, opcode);
 			free_data_t(data);
 			exit(EXIT_FAILURE);
 		}

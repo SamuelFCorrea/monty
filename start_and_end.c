@@ -8,7 +8,7 @@ data_t *init(char *file_name)
 	line = malloc(1024 * sizeof(char));
 	if (!line)
 	{
-		dprintf(STDERR_FILENO, "Error: malloc failed");
+		fprintf(stderr, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
 
@@ -16,7 +16,7 @@ data_t *init(char *file_name)
 	if (!data)
 	{
 		free(line);
-		dprintf(STDERR_FILENO, "Error: malloc failed");
+		fprintf(stderr, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
 

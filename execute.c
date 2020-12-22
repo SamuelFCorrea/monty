@@ -46,7 +46,7 @@ void push(stack_t **head, unsigned int line, char *data)
 		}
 	if (!data || i == -1)
 	{
-		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line);
+		fprintf(stderr, "L%d: usage: push integer\n", line);
 		*status = 1;
 	}
 	else
@@ -54,7 +54,7 @@ void push(stack_t **head, unsigned int line, char *data)
 		new = malloc(sizeof(stack_t));
 		if (!new)
 		{
-			dprintf(STDERR_FILENO, "Error: malloc failed\n");
+			fprintf(stderr, "Error: malloc failed\n");
 			*status = 1;
 			return;
 		}
@@ -109,7 +109,7 @@ void s_and_e(data_t *data)
 			free_stack(*head);
 			free(head);
 			if (!list[i].opcode)
-				dprintf(STDERR_FILENO, "L%d: unknown instruction %s\n", data->line, opcode);
+				fprintf(stderr, "L%d: unknown instruction %s\n", data->line, opcode);
 			free_data_t(data);
 			exit(EXIT_FAILURE);
 		}

@@ -98,6 +98,7 @@ void s_and_e(data_t *data)
 		if (a == 1)
 		{
 			free_stack(*head);
+			free(head);
 			free_data_t(data);
 			exit(EXIT_FAILURE);
 		}

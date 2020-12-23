@@ -2,6 +2,14 @@
 
 int status = EXIT_SUCCESS;
 
+/**
+ * main - initialize the variables and free the memory
+ * @ac: argument count
+ * @av: argumets
+ *
+ * Return: on succes 0 othewise 1
+ */
+
 int main(int ac, char **av)
 {
 	FILE *file;
@@ -38,6 +46,15 @@ int main(int ac, char **av)
 	free_stack(stack);
 	exit(status);
 }
+
+/**
+ * opcode_run - find and run the correct fuction
+ * @head: stack head
+ * @opcode: opcode
+ * @line: line number
+ *
+ * Return: none
+ */
 
 void opcode_run(stack_t **head, char *opcode, unsigned int line)
 {

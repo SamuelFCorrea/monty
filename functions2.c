@@ -1,5 +1,13 @@
 #include "monty.h"
 
+/**
+ * pint - print the top of the stack
+ * @head: stack head
+ * @line: line number
+ *
+ * Return: none
+ */
+
 void pint(stack_t **head, unsigned int line)
 {
 	if (!head || !*head)
@@ -11,6 +19,14 @@ void pint(stack_t **head, unsigned int line)
 
 	printf("%d\n", (*head)->n);
 }
+
+/**
+ * pop - remove the top of the stack
+ * @head: stack head
+ * @line: line number
+ *
+ * Return: none
+ */
 
 void pop(stack_t **head, unsigned int line)
 {
@@ -28,6 +44,14 @@ void pop(stack_t **head, unsigned int line)
 	if (*head)
 		tmp->prev = NULL;
 }
+
+/**
+ * swap - change the position of two first elements
+ * @head: stack head
+ * @line: line number
+ *
+ * Return: none
+ */
 
 void swap(stack_t **head, unsigned int line)
 {

@@ -1,5 +1,13 @@
 #include "monty.h"
 
+/**
+ * push - puts a new element in the stack
+ * @head: stack head
+ * @line: line number
+ *
+ * Return: none
+ */
+
 void push(stack_t **head, unsigned int line)
 {
 	stack_t *new;
@@ -25,6 +33,13 @@ void push(stack_t **head, unsigned int line)
 	*head = new;
 }
 
+/**
+ * is_num - ins the argument isn't a number change the program status
+ *
+ * Return: none
+ */
+
+
 void is_num(void)
 {
 	int i;
@@ -44,11 +59,25 @@ void is_num(void)
 		}
 }
 
+/**
+ * mfail - change the program status and print the message
+ *
+ * Return: none
+ */
+
 void mfail(void)
 {
 	status = EXIT_FAILURE;
 	fprintf(stderr, "Error: malloc failed\n");
 }
+
+/**
+ * pall - print all the elements in the stack
+ * @head: stack head
+ * @line: line number
+ *
+ * Return: none
+ */
 
 void pall(stack_t **head, unsigned int line)
 {
@@ -56,10 +85,17 @@ void pall(stack_t **head, unsigned int line)
 	(void)line;
 
 	tmp = *head;
-	
+
 	for (; tmp; tmp = tmp->next)
 		printf("%d\n", tmp->n);
 }
+
+/**
+ * free_stack - free all the stack
+ * @head: stack head
+ *
+ * Return: none
+ */
 
 void free_stack(stack_t *head)
 {

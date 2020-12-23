@@ -32,7 +32,7 @@ int main(int ac, char **av)
 	while (getline(&buf, &line_len, file) != -1 && status == EXIT_SUCCESS)
 	{
 		opcode = strtok(buf, " \t\n");
-		if (!opcode || *opcode == '#')
+		if (!opcode || *buf == '#')
 		{
 			line++;
 			continue;
@@ -70,6 +70,8 @@ void opcode_run(stack_t **head, char *opcode, unsigned int line)
 		{"sub", sub},
 		{"div", _div},
 		{"mul", mul},
+		{"mod", mod},
+		{"pchar", pchar},
 		{NULL, NULL}
 	};
 

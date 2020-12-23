@@ -44,6 +44,12 @@ void _div(stack_t **head, unsigned int line)
 		status = EXIT_FAILURE;
 		return;
 	}
+	if ((*head)->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", line);
+		status = EXIT_FAILURE;
+		return;
+	}
 
 	tmp = (*head)->next;
 	tmp->n /= (*head)->n;

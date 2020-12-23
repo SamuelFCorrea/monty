@@ -65,6 +65,9 @@ void opcode_run(stack_t **head, char *opcode, unsigned int line)
 		{"pint", pint},
 		{"pop", pop},
 		{"swap", swap},
+		{"add", add},
+		{"nop", nop},
+		{"sub", sub},
 		{NULL, NULL}
 	};
 

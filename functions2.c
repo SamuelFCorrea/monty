@@ -46,7 +46,7 @@ void pop(stack_t **head, unsigned int line)
 }
 
 /**
- * swap - change the position of two first elements
+ * swap - change the position of the two first elements
  * @head: stack head
  * @line: line number
  *
@@ -69,4 +69,44 @@ void swap(stack_t **head, unsigned int line)
 	tmp->next = *head;
 	*head = tmp;
 	tmp->prev = NULL;
+}
+
+/**
+ * add - add the two first element of the stack
+ * @head: stack head
+ * @line: line number
+ *
+ * Return: none
+ */
+
+void add(stack_t **head, unsigned int line)
+{
+	stack_t *tmp;
+
+	if (!head || !*head || !(*head)->next)
+	{
+		fprintf(stderr, "L%d: can't add, stack too short\n", line);
+		status = EXIT_FAILURE;
+		return;
+	}
+
+	tmp = (*head)->next;
+	tmp->n += (*head)->n;
+	tmp->prev = NULL;
+	free(*head);
+	*head = tmp;
+}
+
+/**
+ * nop - change the whole world
+ * @head: stack head
+ * @line: line number
+ *
+ * Return: none
+ */
+
+void nop(stack_t **head, unsigned int line)
+{
+	(void)line;
+	(void)head;
 }

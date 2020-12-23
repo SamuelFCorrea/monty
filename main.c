@@ -68,6 +68,8 @@ void opcode_run(stack_t **head, char *opcode, unsigned int line)
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
+		{"div", _div},
+		{"mul", mul},
 		{NULL, NULL}
 	};
 
